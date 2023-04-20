@@ -3,16 +3,16 @@ from text_generator import generate_card_text
 
 
 def main():
-    while True:
-        reason = input("What is this card for? ")
-        person = input("Who is this card for? ")
-        likes = input("What does this person like? (optional) ")
-        tones = input("What tones do you want to use? (optional) ")
-        orientation = input(
-            "What orientation do you want? (optional, portrait / landscape, default : portrait)"
-        )
-        clean = input("do you want the images to be cleaned? (y/n) ")
+    reason = input("What is this card for? ")
+    person = input("Who is this card for? ")
+    likes = input("What does this person like? (optional) ")
+    tones = input("What tones do you want to use? (optional) ")
+    orientation = input(
+        "What orientation do you want? (optional, portrait / landscape, default : portrait)"
+    )
+    clean = input("do you want the images to be cleaned? (y/n) ")
 
+    while True:
         print()
         print("Message : " + generate_card_text(reason, person, likes, tones))
         print()
