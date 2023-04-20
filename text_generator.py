@@ -9,7 +9,8 @@ def generate_card_text(reason, person, likes="", tones=""):
     if likes:
         prompt = prompt + f", who likes {likes}"
     if tones:
-        prompt = f"write a creative {tones} inside message of a maximum of 50 words for {reason}, to {person}, who likes {likes}."
+        prompt = f"write a creative {tones} inside message of a maximum of 50 words for {reason}, to {person}, who " \
+                 f"likes {likes}. "
 
     json = {
         "model": "gpt-3.5-turbo",

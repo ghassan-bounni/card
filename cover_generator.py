@@ -9,7 +9,7 @@ import const as c
 
 
 def generate_card_images(reason, orientation="portrait", clean="n"):
-    # using stablediffusion api to generate image for card
+    # using stable-diffusion api to generate image for card
     url = "https://stablediffusionapi.com/api/v4/dreambooth"
     if orientation == "portrait":
         width = 1024
@@ -25,7 +25,8 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
         "samples": 3,
         "webhook": "",
         "track_id": "",
-        "prompt": f"{reason}, sticker, symmetric, highly detailed sticker, vector illustration, rich colors, smooth and clean vector curves, no jagged lines, minimalist, white background,illustration",
+        "prompt": f"{reason}, sticker, symmetric, highly detailed sticker, vector illustration, rich colors, "
+                  f"smooth and clean vector curves, no jagged lines, minimalist, white background,illustration",
         "negative_prompt": "realistic real low quality multiple, text, logo",
         "num_inference_steps": 31,
         "seed": "null",
@@ -39,7 +40,7 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
     res_id = response.json()["id"]
 
     print("Waiting for images to be generated...")
-    while output == []:
+    while not output:
         response = requests.post(
             "https://stablediffusionapi.com/api/v4/dreambooth/fetch",
             json={"key": c.SD_API_KEY, "request_id": res_id},
@@ -54,25 +55,25 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
         cleaned = []
         for url in output:
             cleaned.append(remove_bg(url))
-        print("Upscaling images...")
+        print("Up-scaling images...")
         return {
             "original": output,
             "cleaned": cleaned,
-            "original_upscaled": upscale_images(output),
-            "cleaned_upscaled": upscale_images(cleaned),
+            "original_upscale": upscale_images(output),
+            "cleaned_upscale": upscale_images(cleaned),
         }
 
-    print("Upscaling images...")
+    print("Up-scaling images...")
 
     return {
         "original": output,
-        "original_upscaled": upscale_images(output),
+        "original_upscale": upscale_images(output),
     }
 
 
 def upscale_images(img_urls):
-    # using stablediffusion api to upscale image
-    upacaled_urls = []
+    # using stable-diffusion api to upscale image
+    upscale_urls = []
     url = "https://stablediffusionapi.com/api/v3/super_resolution"
     for img_url in img_urls:
         json = {
@@ -83,17 +84,9 @@ def upscale_images(img_urls):
             "face_enhance": "false",
         }
         response = requests.post(url, json=json, timeout=60).json()
-        upacaled_urls.append(response["output"])
+        upscale_urls.append(response["output"])
 
-        # download image
-        r = requests.get(response["output"], timeout=60)
-        if r.status_code == 200:
-            with open(
-                f"images/upscaled/{response['output'].split('/')[-1]}", "wb"
-            ) as f:
-                f.write(r.content)
-
-    return upacaled_urls
+    return upscale_urls
 
 
 def upload_file(file_name, bucket, object_name=None):
@@ -121,7 +114,7 @@ def upload_file(file_name, bucket, object_name=None):
     except ClientError as error:
         logging.error(error)
         return False, None
-    return (True, s3_url)
+    return True, s3_url
 
 
 def remove_bg(url):

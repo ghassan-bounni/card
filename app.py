@@ -20,18 +20,19 @@ def main():
         card_images = generate_card_images(reason, orientation, clean)
         if clean == "y":
             original_cleaned = card_images["cleaned"]
-            upscaled_cleaned = card_images["cleaned_upscaled"]
+            upscale_cleaned = card_images["cleaned_upscale"]
         else:
             original_cleaned = "None"
-            upscaled_cleaned = "None"
+            upscale_cleaned = "None"
 
         print(
             f"Original: {card_images['original']}",
             f"Original + Cleaned: {original_cleaned}",
-            f"Upscaled: {card_images['original_upscaled']}",
-            f"Upscaled + Cleaned: {upscaled_cleaned}",
+            f"Upscale: {card_images['original_upscale']}",
+            f"Upscale + Cleaned: {upscale_cleaned}",
             sep="\n\n",
         )
+        print()
         regenerate = input("Try again ? (y/n)")
         regenerate = regenerate.lower().strip()
 
