@@ -40,7 +40,6 @@ def generate_card_images(reason_keywords, orientation="portrait", clean="n"):
         res = response.json()["output"]
         res_id = response.json()["id"]
 
-        print("Waiting for images to be generated...")
         while not res:
             response = requests.post(
                 "https://stablediffusionapi.com/api/v4/dreambooth/fetch",

@@ -21,6 +21,7 @@ data = {
 def generate(reason, person, likes, tones, orientation, clean):
     message = generate_card_text(reason, person, likes, tones)
 
+    print("Waiting for images to be generated...")
     card_images = generate_card_images(occasion_keyword_map[reason], orientation, clean)
     if clean == "y":
         cleaned = card_images["cleaned"]
