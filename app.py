@@ -52,7 +52,10 @@ def generate_cards():
     data["likes"] = request.form["likes"]
     data["tone"] = request.form["tone"]
     data["orientation"] = request.form["orientation"]
-    data["clean"] = request.form["clean"]
+    if "clean" in request.form.keys():
+        data["clean"] = request.form["clean"]
+    else:
+        data["clean"] = "n"
 
     reason, person, likes, tone, orientation, clean = data.values()
 
