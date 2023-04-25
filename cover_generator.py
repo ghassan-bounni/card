@@ -8,7 +8,7 @@ from botocore.exceptions import ClientError
 import const as c
 
 
-def generate_card_images(reason, orientation="portrait", clean="n"):
+def generate_card_images(reason_keywords, orientation="portrait", clean="n"):
     # using stable-diffusion api to generate image for card
     url = "https://stablediffusionapi.com/api/v4/dreambooth"
     if orientation == "portrait":
@@ -17,38 +17,40 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
     else:
         width = 744
         height = 1024
+    output = []
+    for i in range(len(reason_keywords)):
+        json = {
+            "key": c.SD_API_KEY,
+            "model_id": c.MODEL_ID,
+            "enhance_prompt": "no",
+            "samples": 1,
+            "webhook": "",
+            "track_id": "",
+            "prompt": f"{reason_keywords[i]}, sticker, symmetric, highly detailed sticker, vector illustration, rich colors, "
+                      f"smooth and clean vector curves, no jagged lines, minimalist, white background,illustration",
+            "negative_prompt": "realistic real low quality multiple, text, logo",
+            "num_inference_steps": 31,
+            "seed": "null",
+            "guidance_scale": 7,
+            "width": width,
+            "height": height,
+            "scheduler": "EulerAncestralDiscreteScheduler",
+        }
+        response = requests.post(url, json=json, timeout=60)
+        res = response.json()["output"]
+        res_id = response.json()["id"]
 
-    json = {
-        "key": c.SD_API_KEY,
-        "model_id": c.MODEL_ID,
-        "enhance_prompt": "no",
-        "samples": 3,
-        "webhook": "",
-        "track_id": "",
-        "prompt": f"{reason}, sticker, symmetric, highly detailed sticker, vector illustration, rich colors, "
-                  f"smooth and clean vector curves, no jagged lines, minimalist, white background,illustration",
-        "negative_prompt": "realistic real low quality multiple, text, logo",
-        "num_inference_steps": 31,
-        "seed": "null",
-        "guidance_scale": 7,
-        "width": width,
-        "height": height,
-        "scheduler": "EulerAncestralDiscreteScheduler",
-    }
-    response = requests.post(url, json=json, timeout=60)
-    output = response.json()["output"]
-    res_id = response.json()["id"]
-
-    print("Waiting for images to be generated...")
-    while not output:
-        response = requests.post(
-            "https://stablediffusionapi.com/api/v4/dreambooth/fetch",
-            json={"key": c.SD_API_KEY, "request_id": res_id},
-            timeout=60,
-        )
-        if response.json()["status"] == "success":
-            output = response.json()["output"]
-            break
+        print("Waiting for images to be generated...")
+        while not res:
+            response = requests.post(
+                "https://stablediffusionapi.com/api/v4/dreambooth/fetch",
+                json={"key": c.SD_API_KEY, "request_id": res_id},
+                timeout=60,
+            )
+            if response.json()["status"] == "success":
+                res = response.json()["output"]
+                break
+        output.append(res[0])
 
     if clean == "y":
         print("cleaning images...")
@@ -59,7 +61,7 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
         return {
             "original": output,
             "cleaned": cleaned,
-            "original_upscale": upscale_images(output),
+            "upscale": upscale_images(output),
             "cleaned_upscale": upscale_images(cleaned),
         }
 
@@ -67,7 +69,7 @@ def generate_card_images(reason, orientation="portrait", clean="n"):
 
     return {
         "original": output,
-        "original_upscale": upscale_images(output),
+        "upscale": upscale_images(output),
     }
 
 
@@ -134,5 +136,8 @@ def remove_bg(url):
     res, url = upload_file(output_path, c.BUCKET_NAME)
     if not res:
         print("Upload failed")
+
+    os.remove(file_name)
+    os.remove(output_path)
 
     return url

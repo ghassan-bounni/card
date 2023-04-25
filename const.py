@@ -1,8 +1,23 @@
-BUCKET_NAME = "stylizertest"
-ACCESS_KEY_ID = "AKIASH3LEUK23GNFK6NZ"
-SECRET_ACCESS_KEY = "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"
+BUCKET_NAME = ""
+ACCESS_KEY_ID = ""
+SECRET_ACCESS_KEY = ""
 
-SD_API_KEY = "lUHfz6htjXph9Is7ZkuoIp218ZFbs1eqQRgI7MI9SuZR7ULbGR8XUZAhgYBh"
-MODEL_ID = "dreamlike"
+SD_API_KEY = ""
+MODEL_ID = ""
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""
+
+occasion_keyword_map = {
+    "birthday": ["balloons", "cake", "cupcakes"],
+    "christmas": ["Christmas tree", "Santa Claus", "snowman", "elves", "poinsettia"],
+    "engagement": ["fireworks", "champagne", "lovebirds"],
+    "graduation": ["caps and gowns", "diplomas", "graduation"],
+    "get well": ["flowers", "medicine", "pillows"],
+    "love": ["hearts", "cupid", "lovebirds"],
+    "mother's day": ["floral", "ribbons", "mother and child"],
+    "pregnancy": ["balloons", "cake", "cupcakes"],
+    "thanks giving": ["turkey", "pumpkins", " fall leaves"],
+    "teacher's day": ["books", "apples", "coffee mugs"],
+    "valentines": ["hearts", "chocolate", "roses"],
+    "wedding": ["flowers", "wedding dress", "doves"],
+}

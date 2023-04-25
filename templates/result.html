@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Card Customizer</title>
+    <style>
+      body {
+        font-family: "roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background-color: rgb(55, 50, 148);
+      }
+
+      .container {
+        width: 70%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      p[class="message"] {
+        background-color: white;
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.3rem;
+        color: rgb(55, 50, 148);
+        overflow-x: scroll;
+        white-space: nowrap;
+      }
+
+      a[href="/"],
+      input {
+        text-decoration: none;
+        color: white;
+        background-color: rgb(37, 31, 153);
+        padding: 0.5rem 1rem;
+        border-radius: 0.3rem;
+        border: none;
+        cursor: pointer;
+        margin: 0.5rem;
+        font-size: medium;
+      }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+        margin: 0.5rem;
+      }
+
+      .images {
+        display: flex;
+        justify-content: center;
+      }
+
+      .result_img {
+        display: block;
+        width: 33%;
+        margin: 0.5rem;
+      }
+
+      ::-webkit-scrollbar {
+        border-radius: 0.3rem;
+      }
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        border-radius: 0.3rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin: 0.3rem;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Result</h1>
+      <h2>message</h2>
+      <p class="message">
+      {{message}}
+      </p>
+      <h2>Images</h2>
+      <div class="images">
+        {% for image in original %}
+        <a href={{image}} class="result_img">
+          <img src={{image}} alt="" />
+        </a>
+        {% endfor %}
+      </div>
+      <div class="links">
+        <div>
+          <h3>Upscale:</h3>
+          <p>
+            {% for image in upscale %}
+            <a href={{image}}>Download </a>
+            {% endfor %}
+          </p>
+        </div>
+        {% if cleaned != "None" %}
+        <div>
+          <h3>Transparent Background:</h3>
+          <p>
+            {% for image in cleaned %}
+            <a href={{image}}>Download </a>
+            {% endfor %}
+          </p>
+        </div>
+        <div>
+          <h3>Transparent Background + Upscale:</h3>
+          <p>
+            {% for image in upscale_cleaned %}
+            <a href={{image}}>Download </a>
+            {% endfor %}
+          </p>
+        </div>
+        {% endif %}
+      </div>
+      <form action="/regenerate">
+        <a href="/">Back</a>
+        <input type="submit" value="Regenerate" />
+      </form>
+    </div>
+  </body>
+</html>

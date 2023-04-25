@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Card Customizer</title>
+    <style>
+      body {
+        font-family: "roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background-color: rgb(55, 50, 148);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      form {
+        width: 60%;
+        border-radius: 0.5rem;
+      }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      .checkbox {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      input[type="checkbox"] {
+        margin-left: 0.5rem;
+        transform: scale(1.5);
+        accent-color: rgb(64, 58, 162);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"],
+      select {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.3rem;
+        color: rgb(55, 50, 148);
+      }
+
+      button {
+        display: block;
+        width: 50%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        margin: 0 auto;
+      }
+
+      span {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Create a custom card message and cover art!</h1>
+    <form action="/generate" method="POST">
+      <div class="form-group">
+        <label for="reason">What is this card for? <span>*</span></label>
+        <select name="reason" id="reason" required>
+          <option value="birthday">Birthday</option>
+          <option value="christmas">Christmas</option>
+          <option value="engagement">Engagement</option>
+          <option value="graduation">Graduation</option>
+          <option value="get well">Get Well</option>
+          <option value="love">Love</option>
+          <option value="mother's day">Mother's Day</option>
+          <option value="pregnancy">Pregnancy</option>
+          <option value="thanks giving">Thanks Giving</option>
+          <option value="teacher's day">Teacher's Day</option>
+          <option value="valentines">Valentine's Day</option>
+          <option value="wedding">Wedding</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="person">Who is this card for? <span>*</span></label>
+        <input type="text" name="person" id="person" required />
+      </div>
+      <div class="form-group">
+        <label for="likes">What does this person like?</label>
+        <input type="text" name="likes" id="likes" />
+      </div>
+      <div class="form-group">
+        <label for="tone">Message Tone</label>
+        <select name="tone" id="tone">
+          <option value="">None</option>
+          <option value="affectionate">Affectionate</option>
+          <option value="cozy">Cozy</option>
+          <option value="exciting">Exciting</option>
+          <option value="encouraging">Encouraging</option>
+          <option value="friendly">Friendly</option>
+          <option value="funny">Funny</option>
+          <option value="formal">Formal</option>
+          <option value="grateful">Grateful</option>
+          <option value="happy">Happy</option>
+          <option value="hopeful">Hopeful</option>
+          <option value="inspirational">Inspirational</option>
+          <option value="joyful">Joyful</option>
+          <option value="love">Love</option>
+          <option value="motivational">Motivational</option>
+          <option value="proud">Proud</option>
+          <option value="sassy">Sassy</option>
+          <option value="serious">Serious</option>
+          <option value="warm">Warm</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="orientation">Orientation</label>
+        <select name="orientation" id="orientation">
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label for="clean">do you want a transparent background?</label>
+        <input type="checkbox" name="clean" id="clean" value="y" />
+      </div>
+      <button type="submit">Generate</button>
+    </form>
+  </body>
+</html>
