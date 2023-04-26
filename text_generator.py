@@ -26,7 +26,7 @@ def generate_card_text(reason, person, likes="", tones=""):
         url,
         headers=headers,
         json=json,
-        timeout=60,
+        timeout=200,
     )
 
     if response.json().get("error"):

@@ -9,7 +9,7 @@ OPENAI_API_KEY = ""
 
 occasion_keyword_map = {
     "birthday": ["balloons", "cake", "cupcakes"],
-    "christmas": ["Christmas tree", "Santa Claus", "snowman", "elves", "poinsettia"],
+    "christmas": ["Christmas tree", "Santa Claus", "snowman", "gnome", "poinsettia"],
     "engagement": ["fireworks", "champagne", "lovebirds"],
     "graduation": ["caps and gowns", "diplomas", "graduation"],
     "get well": ["flowers", "medicine", "pillows"],

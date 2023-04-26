@@ -25,7 +25,7 @@ def generate(reason, person, likes, tones, orientation, clean):
     card_images = generate_card_images(occasion_keyword_map[reason], orientation, clean)
     if clean == "y":
         cleaned = card_images["cleaned"]
-        upscale_cleaned = card_images["upscale"]
+        upscale_cleaned = card_images["cleaned_upscale"]
     else:
         cleaned = "None"
         upscale_cleaned = "None"
