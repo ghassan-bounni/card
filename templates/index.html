@@ -29,12 +29,6 @@
       .form-group {
         margin-bottom: 1rem;
       }
-      .checkbox {
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: center;
-      }
-
       input[type="checkbox"] {
         margin-left: 0.5rem;
         transform: scale(1.5);
@@ -73,7 +67,7 @@
   </head>
   <body>
     <h1>Create a custom card message and cover art!</h1>
-    <form action="/generate" method="POST">
+    <form action="/generate_message" method="POST">
       <div class="form-group">
         <label for="reason">What is this card for? <span>*</span></label>
         <select name="reason" id="reason" required>
@@ -82,6 +76,7 @@
           <option value="engagement">Engagement</option>
           <option value="graduation">Graduation</option>
           <option value="get well">Get Well</option>
+          <option value="halloween">Halloween</option>
           <option value="love">Love</option>
           <option value="mother's day">Mother's Day</option>
           <option value="pregnancy">Pregnancy</option>
@@ -120,6 +115,7 @@
           <option value="proud">Proud</option>
           <option value="sassy">Sassy</option>
           <option value="serious">Serious</option>
+          <option value="spooky">Spooky</option>
           <option value="warm">Warm</option>
         </select>
       </div>
@@ -129,10 +125,6 @@
           <option value="landscape">Landscape</option>
           <option value="portrait">Portrait</option>
         </select>
-      </div>
-      <div class="checkbox">
-        <label for="clean">do you want a transparent background?</label>
-        <input type="checkbox" name="clean" id="clean" value="y" />
       </div>
       <button type="submit">Generate</button>
     </form>

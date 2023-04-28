@@ -40,7 +40,7 @@
         white-space: nowrap;
       }
 
-      a[href="/"],
+      a[href="/"], a[href="/catalog"],
       input {
         text-decoration: none;
         color: white;
@@ -67,7 +67,7 @@
 
       .result_img {
         display: block;
-        width: 512px;
+        width: 350px;
         margin: 0.5rem;
       }
 
@@ -97,16 +97,23 @@
         color: white;
         text-decoration: none;
       }
+
+      .checkbox {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Result</h1>
-      <h2>message</h2>
+      <h2>Message</h2>
       <p class="message">
       {{message}}
       </p>
       <h2>Images</h2>
+      {% if original %}
       <div class="images">
         {% for image in original %}
         <a href={{image}} class="result_img">
@@ -142,10 +149,26 @@
         </div>
         {% endif %}
       </div>
-      <form action="/regenerate">
+      <form action="/regenerate" method="get">
+        <div class="checkbox">
+          <label>do you want a transparent background?</label>
+          <input type="checkbox" name="clean" value="y" />
+        </div>
         <a href="/">Back</a>
         <input type="submit" value="Regenerate" />
+        <a href="/catalog">Explore More Art</a>
       </form>
+      {% else %}
+      <form action="/generate_cover_art" method="get">
+        <div class="checkbox">
+          <label>do you want a transparent background?</label>
+          <input type="checkbox" name="clean" value="y" />
+        </div>
+        <a href="/">Back</a>
+        <input type="submit" value="Generate Cover Art" />
+        <a href="/catalog">Explore Our Art Catalog</a>
+      </form>
+      {% endif %}
     </div>
   </body>
 </html>

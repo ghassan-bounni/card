@@ -49,7 +49,13 @@ def generate_card_images(reason_keywords, orientation="portrait", clean="n"):
             if response.json()["status"] == "success":
                 res = response.json()["output"]
                 break
-        output.append(res[0])
+            elif response.json()["status"] == "failed":
+                print(f"retrying img {i}")
+                i = i - 1
+                break
+
+        if not response.json()["status"] == "failed":
+            output.append(res[0])
 
     if clean == "y":
         print("cleaning images...")
